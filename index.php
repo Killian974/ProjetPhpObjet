@@ -1,42 +1,58 @@
 <?php
-var_dump("coucou");
-
-class Person {
-
-    private $firstname;
-    private $lastname;
-
-    public function setFirstname($pFirstname){
-        $this->firstname = $pFirstname;
+ 
+ class Person {
+     private $dog;
+     private $firstname;
+     private $lastname;
+ 
+     public function __construct(string $pFirstname, string $pLastname) {
+         $this->firstname = $pFirstname;
+        $this->lastname = $pLastname;
     }
-    public function setLastname($pLastname){
-        $this ->lastname = $pLastname;
-    }
-
-    public function getFirstname() {
+    public function getFirstname(): string {
         return $this->firstname;
     }
-    public function getLastname() {
+    public function getLastname(): string {
         return $this->lastname;
     }
-    public function speak() {
-        return "Salut mon nom est " . $this->firstname . " " . $this->lastname;
+    public function speak(): string {
+        return "Je suis " . $this->firstname . " " . $this->lastname . " et mon chien est " . $this->dog->getName();
+        return "Je suis $this->firstname $this->lastname et mon chien est " . $this->dog->getName();
     }
-
+    public function buy(Dog $pDog) {
+         $this->dog = $pDog;
+ 
+         $this->dog->setOwner($this);
+     }
  }
+ 
+ class Dog {
+     private $owner;
+     private $name;
+ 
+     public function __construct(string $pName) {
+         $this->name = $pName;
+     }
+ 
+     public function getName(): string {
+         return $this->name;
+     }
+ 
+     public function setOwner(Person $pOwner) {
+         $this->owner = $pOwner;
+    }
+    public function speak(): string {
+        
+        return "Mon maitre est " . $this->owner->getFirstname() . " " . $this->owner->getLastname() . " et je suis $this->name";
+    }
+}
+ $person = new Person("John", "Doe");
+ $dog = new Dog("Johnny");
+ 
+$person->buy($dog);
+var_dump($person->speak());
+var_dump($dog->speak());
 
 
-$person1 = new Person();
-$person1->setFirstname("Jean");
-$person1->setLastname("Martin");
 
-// $person2 = new Person();
- // $person1 ->setFirsname("Jeanne");
- // $person1 ->setLastname("Martin");
-
- var_dump($person1->getFirstname());
- var_dump($person1->getLastname());
- var_dump($person1->speak());
-
-// var_dump($person2);
 
