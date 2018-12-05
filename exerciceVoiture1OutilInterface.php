@@ -28,4 +28,5 @@ class User implements IAction {
     public function setVehicule(IAction $pVehicule) {
         $this->vehicule = $pVehicule;
     }
+    //
 
